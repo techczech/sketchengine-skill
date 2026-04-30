@@ -1,0 +1,6 @@
+# Runtime cache for large MCP responses (sketch-engine-mcp writes here when
+# a response exceeds the LLM context budget). Per-machine, not source.
+cache/
+
+# macOS
+.DS_Store
