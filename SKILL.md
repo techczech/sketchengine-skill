@@ -1,18 +1,6 @@
 ---
 name: sketchengine-skill
-description: |
-  Set up and use the Sketch Engine MCP server (ricCap/sketch-engine-mcp-server) to give Claude direct access to Sketch Engine corpora — Word Sketches, Concordances, Collocations, Word Lists, Word Comparison, Frequency Analysis, Keyword Extraction, and CQL queries.
-
-  TRIGGERS: Use when:
-  - User asks to set up, install, or configure the Sketch Engine MCP / SketchEngine MCP
-  - User mentions a Sketch Engine API key, sketchengine.eu, or wants to authenticate against Sketch Engine
-  - User wants to run corpus-linguistics tasks against Sketch Engine corpora (BNC, COCA, EnTenTen, Hansard, Susanne, etc.) from inside Claude
-  - User asks for collocations, concordances, word sketches, or keyword analysis and has access to Sketch Engine
-  - User wants to write or run CQL (Corpus Query Language) queries via an agent
-
-  DO NOT trigger for:
-  - General corpus-linguistics setup that doesn't involve Sketch Engine specifically — see corpus-tools-skill
-  - The Sketch design tool (no relation; this skill is for the corpus query platform)
+description: "Use Sketch Engine corpora."
 ---
 
 # Sketch Engine Skill
