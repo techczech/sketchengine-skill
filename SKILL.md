@@ -1,6 +1,6 @@
 ---
 name: sketchengine-skill
-description: "Use Sketch Engine corpora."
+description: "Install and configure the Sketch Engine MCP server, then query Sketch Engine corpora for word sketches, word lists, keywords and corpus information. Use when a task needs a Sketch Engine corpus or API key setup."
 ---
 
 # Sketch Engine Skill
@@ -36,7 +36,7 @@ The user needs a Sketch Engine account.
 2. After login: top-right username → **My Account** → **API Key** section → **Generate API Key** (or copy the existing one).
 3. Make the key available as the env var `SKETCH_ENGINE_API_KEY`. Pick whichever fits your setup:
    - **Shell rc file** (`~/.zshrc`, `~/.bashrc`): `export SKETCH_ENGINE_API_KEY="…"` — simplest.
-   - **Dedicated dotfile** with restrictive perms (`~/.env.secrets`, chmod 600), sourced from your shell rc.
+   - **Dedicated dotfile** with restrictive perms (for example `~/.config/sketchengine/key.sh`, chmod 600), sourced from your shell rc.
    - **direnv** (`~/.envrc` or per-project `.envrc`) — if you already use direnv.
    - **Secrets manager** (e.g. Bitwarden Secrets Manager via the [`bws` CLI](https://bitwarden.com/help/secrets-manager-cli/)): store the key in your vault, then write a launcher script that fetches it at runtime. This is the most defensible option for shared machines but the heaviest setup.
 
@@ -58,7 +58,7 @@ bash scripts/configure-mcp.sh --target claude-code-project --path /path/to/proje
 bash scripts/configure-mcp.sh --target claude-code-user
 ```
 
-The script reads `SKETCH_ENGINE_API_KEY` from the environment (and as a convenience also sources `~/.env.secrets` if it exists and the var is unset). It writes the literal key into the MCP server entry's `env.SKETCH_ENGINE_API_KEY` field. If you'd rather keep the key out of any JSON config file, replace the registered MCP `command` with a launcher script that fetches the key at runtime from your secrets manager and `exec`'s the real binary — see `references/troubleshooting.md` for the launcher pattern.
+The script reads `SKETCH_ENGINE_API_KEY` from the environment. It writes the literal key into the MCP server entry's `env.SKETCH_ENGINE_API_KEY` field. If you'd rather keep the key out of any JSON config file, replace the registered MCP `command` with a launcher script that fetches the key at runtime from your secrets manager and `exec`'s the real binary — see `references/troubleshooting.md` for the launcher pattern.
 
 ### Step 4 — verify
 

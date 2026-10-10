@@ -1,10 +1,30 @@
 # sketchengine-skill
 
-A Claude Code / Claude Desktop skill that installs and configures the [Sketch Engine MCP server](https://github.com/ricCap/sketch-engine-mcp-server), then helps the user run corpus-linguistic tasks against Sketch Engine corpora — Word Sketches, Concordances, Collocations, Word Lists, Word Comparison, Frequency Analysis, Keyword Extraction, and CQL queries — as MCP tools.
+**What it does.** Installs and configures the [Sketch Engine MCP server](https://github.com/ricCap/sketch-engine-mcp-server) and helps Claude run corpus-linguistic tasks against Sketch Engine corpora (word sketches, word lists, keywords and corpus listings).
+
+**Who it is for.** Linguists, lexicographers and language teachers who already have, or can get, a Sketch Engine account.
+
+**What you need.**
+
+- macOS (Apple Silicon or Intel) for the install script; Linux binaries exist upstream but the script does not install them.
+- A Sketch Engine account with API access (a paid or institutional subscription; see [sketchengine.eu](https://www.sketchengine.eu/)) and an API key.
+- `curl` and `jq` (`brew install jq`). The server binary is small; no GPU or large disk or RAM needed.
+
+**Install.**
+
+```bash
+git clone https://github.com/techczech/sketchengine-skill ~/.claude/skills/sketchengine-skill
+```
+
+For Codex, clone into `~/.codex/skills/sketchengine-skill` instead. Then ask Claude to set up Sketch Engine, or run `scripts/install.sh` and `scripts/configure-mcp.sh` yourself.
+
+**Your API key is stored in plain text.** `scripts/configure-mcp.sh` writes the key into the `env` block of the MCP client config file you choose (`~/.claude.json`, `.mcp.json` or the Claude Desktop config). It also leaves a timestamped `.bak.*` copy of that file next to the original. Restrict both (for example `chmod 600 ~/.claude.json*`), keep project `.mcp.json` files out of version control, and see `SKILL.md` and `references/troubleshooting.md` for a launcher-script alternative that keeps the key out of JSON.
+
+**Known limitation.** 4 of the 9 upstream tools (concordance, collocations, frequency, CQL) are currently broken upstream; details below.
 
 ## ⚠️ Status: partially smoke-tested — half the upstream tools are broken
 
-End-to-end smoke-tested against an Oxford institutional account on **2026-04-29** (Apple Silicon Mac, Sketch Engine API 5.85.8). Findings:
+End-to-end smoke-tested against an institutional account on **2026-04-29** (Apple Silicon Mac, Sketch Engine API 5.85.8). Findings:
 
 **Working through this skill (5/9 tools):**
 `get_corpora`, `get_corpus_info`, `get_word_sketch`, `get_wordlist`, `get_keywords`.

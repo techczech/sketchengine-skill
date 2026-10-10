@@ -6,9 +6,8 @@
 #   --target claude-code-project --path /path/to/project   # <path>/.mcp.json
 #   --target claude-code-user        # ~/.claude.json
 #
-# Reads SKETCH_ENGINE_API_KEY from the environment.
-# As a convenience, if the variable is unset and ~/.env.secrets exists, the
-# script will source that file. See SKILL.md for other ways to set the var.
+# Reads SKETCH_ENGINE_API_KEY from the environment. See SKILL.md for ways to
+# set the variable.
 # Writes the absolute path to the binary at ~/.local/bin/sketch-engine-mcp.
 # Refuses to clobber an existing `sketch-engine` entry without --force.
 
@@ -55,12 +54,6 @@ case "$target" in
     exit 1
     ;;
 esac
-
-# Source ~/.env.secrets if SKETCH_ENGINE_API_KEY is not already set
-if [[ -z "${SKETCH_ENGINE_API_KEY:-}" && -f "$HOME/.env.secrets" ]]; then
-  # shellcheck disable=SC1090
-  set -a; . "$HOME/.env.secrets"; set +a
-fi
 
 if [[ -z "${SKETCH_ENGINE_API_KEY:-}" ]]; then
   echo "Error: SKETCH_ENGINE_API_KEY is not set." >&2
